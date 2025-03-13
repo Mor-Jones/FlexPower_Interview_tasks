@@ -1,5 +1,9 @@
 # app.py
 
+#in case hasn't been included in the venv, please pip install:
+#flask==2.2.2
+#"connexion[swagger-ui]==2.14.1"
+
 from flask import Flask, render_template
 import connexion
 
