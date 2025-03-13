@@ -1,0 +1,68 @@
+# swagger.yml
+# I've used version 3.0 but the example given was in 2.0 -- there are a few differences, flagged below
+openapi: 3.0.0
+info:
+  title: "Energy Trading API"
+  description: "An API showing the results (Profit and Loss) of a trading strategy"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+ schemas:
+   PnL:
+     type: "object"
+     required:
+       - strategy_id
+     properties:
+        strategy_id:
+          type: "string"
+          example: my_strategy
+        value:
+          type: number #using float here causes an error
+          example: 100.0
+        unit:
+          type: string
+          example: euro
+        capture_time:
+          type: string
+          example: "2023-01-16T08:15:46Z"
+ parameters:
+   strategy_id:
+      name: "strategy_id"
+      in: path
+      description: string identifier of a strategy
+      required: true
+      schema:
+        type: string
+paths:
+  /pnl/{strategy_id}:
+    get:
+      operationId: "pnl.api_compute_pnl"
+      tags:
+        - Trades
+      summary: "Returns the pnl of the corresponding strategy."
+      parameters:
+        - $ref: "#/components/parameters/strategy_id"
+
+      # produces:
+      #   - application/json
+
+      responses:
+        "200":
+          description: "Successfully computed PnL"
+    
+        #take the thing defined at this path
+        #tells you what has to go into the function  I name at operation id, including:
+        # what is that called; is it required; what type is it; and a desc for the docu
+        #these are the ones they want
+        #ref tells you to look in this file for thing called components for thing called parameters for thing called lname; just means that if i have multiple functions needing the same argument only have to write it once and doesn't break with partial update
+      # requestBody:
+      #   content:
+      #     application/json:
+      #       schema:
+      #         x-body-name: "person"
+      #         $ref: "#/components/schemas/Person"
+
+

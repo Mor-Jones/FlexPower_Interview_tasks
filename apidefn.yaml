@@ -1,0 +1,38 @@
+swagger: "2.0"
+info:
+  title: Energy Trading API
+  version: 1.0.0
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+paths:
+  /pnl/{strategy_id}:
+    get:
+      summary: Returns the pnl of the corresponding strategy.
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          type: string
+          description: string identifier of a strategy.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A PnL data object.
+          schema:
+            type: object
+            properties:
+              strategy:
+                type: string
+                example: my_strategy
+              value:
+                type: float
+                example: 100.0
+              unit:
+                type: string
+                example: euro
+              capture_time:
+                type: string
+                example: "2023-01-16T08:15:46Z"
